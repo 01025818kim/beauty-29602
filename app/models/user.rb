@@ -6,11 +6,12 @@ class User < ApplicationRecord
   
 
 
-  with_options presence: true do
+  with_options presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ } do
     validates :first_name
     validates :last_name
-    validates :nick_name
   end
+
+  validates :nick_name, presence: true
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates_format_of :email, presence: true, uniqueness: true, with: VALID_EMAIL_REGEX 
